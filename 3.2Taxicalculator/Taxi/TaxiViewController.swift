@@ -23,20 +23,34 @@ class TaxiViewController: UIViewController {
 //    21-30km: 9500.
 //    Tử 31 trở lên: 9000.
     func calculator(number: Double) -> Double {
-        var totalMoney: Double = 0
+//        var totalMoney: Double = 0
+//        switch number {
+//        case 0...10:
+//            totalMoney = number * 11000
+//        case 11...20:
+//            totalMoney = 110000 + (number-10)*10000
+//        case 21...30:
+//            totalMoney = 210000 + (number-20) * 9500
+//        case 31...10000:
+//            totalMoney = 305000 + (number - 30) * 9000
+//        default:
+//            totalMoney = 0
+//        }
+//        return totalMoney
+        var km:Double = 0
         switch number {
-        case 0...10:
-            totalMoney = number * 11000
-        case 11...20:
-            totalMoney = 110000 + (number-10)*10000
-        case 21...30:
-            totalMoney = 210000 + (number-20) * 9500
-        case 31...10000:
-            totalMoney = 305000 + (number - 30) * 9000
+        case 0...110000:
+            km = number/11000
+        case 110001...210000:
+            km = 10 + ((number-110000)/10000)
+        case 210001...305000:
+            km = 20 + ((number-210000)/9500)
+        case 305001...100000000:
+            km = 30 + ((number-305000)/9000)
         default:
-            totalMoney = 0
+            km = 0
         }
-        return totalMoney
+        return km
     }
 
     @IBAction func calculatorButton(_ sender: UIButton) {
@@ -44,7 +58,7 @@ class TaxiViewController: UIViewController {
            km.isNumberic
            {
             let money = calculator(number: Double(km)!)
-            let calcultorAlert = UIAlertController(title: "Total money", message: "Tong so tien phai tra la \(money)", preferredStyle: .alert)
+            let calcultorAlert = UIAlertController(title: "Total km", message: "Tong so km ban da di la \(money)", preferredStyle: .alert)
             let okAleart = UIAlertAction(title: "ok", style: .default, handler: nil)
             calcultorAlert.addAction(okAleart)
             present(calcultorAlert, animated: true, completion: nil)
